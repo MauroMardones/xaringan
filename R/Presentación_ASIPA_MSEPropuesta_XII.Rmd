@@ -1,0 +1,305 @@
+---
+title: "Propuesta MSE XII Region"
+subtitle: "Proyecto ASIPA"
+institute: "IFOP, Depto Eval. de Recursos"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+---
+class: inverse, left, top
+
+# Outline
+
+--
+
+## 1. Contexto
+
+--
+
+## 2. Enfoques para el MSE en el proyecto
+
+--
+
+## 3. Diferencias de ambos enfoques
+
+--
+
+## 4. Discusión
+
+---
+
+# 1. Contexto
+
+Frente al objetivo de proponer estrategias o procedimientos de Manejo para la pesquería 
+de erizo en la XII Región, debemos reconocer lo sig;
+
+--
+
+- No existen procedimientos de manejo ni evaluación en el PM de los recursos Bentónicos
+de la XII Región
+
+--
+
+- Extiste un antecedente de propuesta por parte del ASIPA de Planes de Manejo presentado en NOviembre 2018 a sectorialistas de SubPesca
+
+--
+
+- Actualmente el Departamento esta avanzando en un protocolo de MSE*
+
+--
+
+- La idea es ver que enfoque podemos desarrollar como proyecto para esa pesquería
+
+--
+.footnote[
+[*] Esto no es tan claro como se anuncia y piensa
+]
+
+---
+
+
+# 2. Enfoques para el MSE en el proyecto
+
+
+Aquí se plantea una grieta que es ficticia conceptualmente pero real en terminos metodológicos.
+
+
+porqué?
+
+Veamoslo graficamente...
+---
+# 3. Diferencias de ambos enfoques
+
+### Enfoque Data poor 
+
+.center[![Plot Caption](DMLToolChart.jpg)]
+
+.footnote[
+(Hordyk & Carruthers, 2015)
+]
+---
+# 3. Diferencias de ambos enfoques
+
+### Enfoque Data rich
+
+
+```{r, out.width = "75%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("MSErichChart.jpg")
+```
+
+.footnote[
+(Punt et al., 2005)
+]
+---
+
+
+## Data poor MSE vs Data rich MSE
+
+Algunas diferencias entre ambos enfoques:
+
+--
+.pull-left[
+1. No existen procesos de evaluación establecidos (simulación full) ;
+
+1. Reglas de manejo empíricas (observaciones de campo);
+
+1. Generalmente para pesquerías con datos limitados;
+
+1. De fácil implementación (packages en R);
+
+1. Facíl comunicación de sus salidas;
+
+1. No requeries de PBRs explícitos;
+]
+--
+.pull-right[
+
+1. Ya existe un modelo de evaluación validado;
+
+1. Reglas de Control basadas en F o Capturas;
+
+1. Alta demanda de tiempo en la implementación;
+
+1. Necesita de consensos con usuarios (fijar objetivos y reglas)
+
+1. Compleja de entender y de comunicar;
+
+1. Requiere de PBRs establecidos para el manejo;
+]
+
+
+---
+
+## Outputs Data Poor MSE enfoque
+
+Aquí se testean procedimientos de manejo empiricos, es decir, que  se pueden corroborar con los datos colectados.
+
+```{r, out.width = "100%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("OutputMSEpoor.jpg")
+```
+
+De hecho, de acuerdo a los datos del monitoreo, se generan Management Procedure plausibles.
+
+Se deben proponer 2 cosas: Objetivo de manejo y Tiempos de cumplimientos
+
+---
+
+## Outputs Data Poor MSE enfoque
+
+No se pueden condicionar HCR como generalmente las conocemos, sino calcular TACs basados en modelos de data poor cuando las medidas tienen relación con F.
+
+
+```{r, out.width = "100%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("OutputMSEpoor2.jpg")
+```
+
+
+---
+
+
+En el caso de un enfoque MSE con data poor, son algoritmos sencillos que se relacionan con el dato observado, por ejemplo;
+
+**Lratio_BHI** Mean length-based indicator MP of Jardim et al. 2015
+
+
+$${TAC}=C_y-1\frac{L}{L_ref}$$
+
+where Cy-1 is the catch from the previous year, L is the mean length of the catch over the last
+yrsmth years (of lengths larger than Lc) and Lref is the mean length expected at MSY. Here, Lc is
+the length at full selection (LFS).
+
+- De estas reglas, se puedeen configurar hasta 106 (2019 update)
+
+- Se pueden configurar objetivos especificos
+
+---
+
+## Outputs Data Poor MSE enfoque
+
+Los resultados relacionados con Perfomance Metrics. En gris sombreado el MP con una probabilidad de más del 30% de alcanzar el objetivo (B40%)
+
+```{r, out.width = "100%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("TablaMSE.jpg")
+```
+
+
+---
+
+## Outputs Data Rich MSE enfoque
+
+Ejercicio realizado en erizo de XII en función de ejercicio Cubillos (2019), con un SA estructurado en edad con datos en tallas (MODBENTO)
+
+Generalmente las salidas son establecidas como una HCR, en donde se muestra el trade off entre capturas (ó F) y biomasas
+
+```{r, out.width = "60%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("ObjMane.jpeg")
+```
+
+
+---
+## Outputs Data Rich MSE enfoque
+
+Aun debo terminar el ejercicio, dado que no entrega resultados plausibles.
+
+Salidas erroneas en relacion a F
+
+```{r, out.width = "60%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("F.jpeg")
+```
+
+
+---
+
+
+### Harvest Control Rules usadas en el ejercicio inicial
+
+.pull-left[
+```yaml
+ 1. F Cte  
+ 
+ if(j==1){
+  Fref=Fobj; 
+ }
+ 
+ 2. Regla Escalera
+ 
+ if(j==2){ 
+ if(BDp/Bobj < 1)
+ {
+ 	Fref=0.5*Fobj;
+	if(BDp/Bobj<0.5){Fref=0;}
+ }
+ else{Fref=Fobj;}
+ }
+```
+]
+
+.pull-right[
+```yaml
+ 3. HCR 0-40
+ 
+ if(j==3){ 
+ if(BDp/Bobj < 1){Fref=Fobj*
+ (BDp/Bobj);
+ 	if(BDp/Bobj < 0.5){Fref=0;}
+ }
+ else{Fref=Fobj;}
+ }
+ 
+ 4. HCR 20-40
+ 
+ if(j==4){ 
+  if(BDp/Bobj<1){Fref=Fobj*
+  (BDp/Bobj-0.5)/0.5;
+ 	 if(BDp/Bobj < 0.5){Fref=0;}
+  }
+  else{Fref=Fobj;}
+ }
+
+```
+]
+
+---
+
+Algunas consideraciones de la evaluación realizada en erizo XII...
+
+.pull-left[
+```{r, out.width = "100%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("ErizoCatch.jpg")
+```
+]
+
+.pull-right[
+```{r, out.width = "130%", fig.pos="h", echo=FALSE, fig.align="center"}
+knitr::include_graphics("ErizoCpue.jpg")
+```
+
+]
+
+---
+
+
+# 4. Discusion
+
+- La pesqueria del erizo tiene todos los componentes para avanzar en un stock assessment formal.
+
+- En un principio se debe seguir con lo propuesto respecto a las estrategias planteadas.
+
+- La pregunta es si es coherente avanzar en un proceso de MSE full (SA y MO)
+
+- Opiniones...
+
+
+---
+
+class: center, middle
+
+# Eso!
