@@ -1,5 +1,5 @@
 # xaringan
-Primera presentación con xaringan para mostrar diferentes enfoques de trabajo en el objtivo de MSE para la pesquería de erizo en la XII regíon de Chile.
+Primera presentación con xaringan package para mostrar diferentes enfoques de trabajo en el objtivo de MSE para la pesquería de erizo en la XII regíon de Chile.
 
 Este es un trabajo en desarrollo.
 
